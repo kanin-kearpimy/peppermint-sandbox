@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Peppermint WebAssembly Runner</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <section class="pane pane-sidebar" aria-label="Uploaded file details">
+        <header class="pane-header">
+          <h2>Uploaded Files</h2>
+        </header>
+        <p id="uploadSummary" class="upload-summary">No files uploaded yet</p>
+        <ul id="uploadedFilesList" class="uploaded-files-list" aria-live="polite"></ul>
+      </section>
+
+      <section class="right-column" aria-label="Runner workspace">
+      <section class="pane pane-editor" aria-label="Peppermint editor">
+        <header class="pane-header">
+          <h1>Peppermint WebAssembly Runner</h1>
+          <div class="controls">
+            <span id="status" class="status" aria-live="polite">Loading Pyodide...</span>
+            <button id="uploadBtn" class="upload-btn" disabled>Upload CSV</button>
+            <button id="runBtn" class="run-btn" disabled>Run</button>
+          </div>
+        </header>
+
+        <label class="sr-only" for="editor">Peppermint code</label>
+        <textarea id="editor" spellcheck="false">x = 1 + 2
+x
+</textarea>
+        <input id="csvInput" type="file" accept=".csv,text/csv" multiple hidden />
+      </section>
+
+      <section class="pane pane-output" aria-label="Execution output">
+        <header class="pane-header">
+          <h2>Output</h2>
+          <div class="output-controls">
+            <button id="textViewBtn" class="view-toggle-btn active">Text</button>
+            <!-- <button id="tableViewBtn" class="view-toggle-btn">Table</button> -->
+            <button id="clearBtn" class="clear-btn">Clear</button>
+          </div>
+        </header>
+        <pre id="output" aria-live="polite">Waiting for code execution...</pre>
+        <section id="outputTableWrap" class="output-table-wrap hidden" aria-live="polite">
+          <p id="tableMeta" class="table-meta">Run code, then switch to Table view.</p>
+          <div class="table-scroll">
+            <table id="outputTable" class="output-table"></table>
+          </div>
+        </section>
+      </section>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.27.2/full/pyodide.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

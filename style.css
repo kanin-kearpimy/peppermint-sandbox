@@ -1,0 +1,364 @@
+:root {
+  --bg: #0c1219;
+  --panel: #111a24;
+  --border: #2a3b4f;
+  --ink: #e7edf6;
+  --accent: #ff8a3d;
+  --accent-strong: #ff6f1a;
+  --ok: #5ee28b;
+  --muted: #9db0c6;
+  --error: #ff6a88;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 0% 0%, #1f2d3d 0, transparent 40%),
+    radial-gradient(circle at 100% 100%, #1c2734 0, transparent 35%),
+    var(--bg);
+}
+
+.layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(240px, 28vw) 1fr;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.pane {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.pane-editor {
+  border-bottom: 2px solid var(--border);
+  background: linear-gradient(180deg, rgba(18, 28, 40, 0.95), rgba(15, 24, 35, 0.95));
+}
+
+.pane-output {
+  background: linear-gradient(180deg, rgba(14, 23, 34, 0.95), rgba(12, 20, 30, 0.95));
+}
+
+.pane-sidebar {
+  border-right: 2px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(16, 25, 37, 0.95), rgba(12, 20, 30, 0.95)),
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 138, 61, 0.08) 0,
+      rgba(255, 138, 61, 0.08) 10px,
+      rgba(255, 255, 255, 0) 10px,
+      rgba(255, 255, 255, 0) 20px
+    );
+}
+
+.meta-list {
+  margin: 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.upload-summary {
+  margin: 0 0 0.8rem 0;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.uploaded-files-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.8rem;
+  overflow: auto;
+}
+
+.uploaded-file-name {
+  margin: 0 0 0.3rem 0;
+  font-weight: 700;
+}
+
+.uploaded-file-path {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-family: "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+  word-break: break-word;
+}
+
+.meta-item {
+  margin: 0;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.meta-item dt {
+  margin: 0 0 0.35rem 0;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.meta-item dd {
+  margin: 0;
+  font-family: "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+  word-break: break-word;
+}
+
+.pane-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-family: "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.02em;
+}
+
+h1 {
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.output-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.status {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+button {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.45rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 120ms ease, filter 120ms ease;
+}
+
+button:hover:enabled {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.run-btn {
+  background: var(--accent);
+  color: #111;
+}
+
+.upload-btn {
+  border-color: var(--border);
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.clear-btn {
+  border-color: var(--border);
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.view-toggle-btn {
+  border-color: var(--border);
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.04);
+  padding-inline: 0.85rem;
+}
+
+.view-toggle-btn.active {
+  background: rgba(255, 138, 61, 0.2);
+  border-color: rgba(255, 138, 61, 0.6);
+}
+
+#editor,
+#output {
+  width: 100%;
+  flex: 1;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  font-family: "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  background: rgba(10, 16, 24, 0.7);
+}
+
+#editor {
+  resize: none;
+  color: var(--ink);
+}
+
+#editor:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+#output {
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.output-table-wrap {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(10, 16, 24, 0.7);
+  padding: 0.75rem;
+  min-height: 0;
+}
+
+.table-meta {
+  margin: 0 0 0.55rem 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.table-scroll {
+  flex: 1;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.output-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+  font-size: 0.88rem;
+}
+
+.output-table th,
+.output-table td {
+  padding: 0.45rem 0.55rem;
+  border-bottom: 1px solid rgba(157, 176, 198, 0.2);
+  border-right: 1px solid rgba(157, 176, 198, 0.16);
+  text-align: left;
+  vertical-align: top;
+}
+
+.output-table th:last-child,
+.output-table td:last-child {
+  border-right: 0;
+}
+
+.output-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #162130;
+}
+
+.output-table tbody tr:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.output-error {
+  color: var(--error);
+}
+
+.output-ok {
+  color: var(--ok);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@media (max-width: 680px) {
+  .layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .right-column {
+    min-height: 0;
+  }
+
+  .pane {
+    padding: 0.75rem;
+  }
+
+  .pane-sidebar {
+    border-right: 0;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .pane-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .output-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
