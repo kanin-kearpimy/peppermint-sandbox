@@ -3,7 +3,7 @@ const runBtn = document.getElementById("runBtn");
 const uploadBtn = document.getElementById("uploadBtn");
 const clearBtn = document.getElementById("clearBtn");
 const textViewBtn = document.getElementById("textViewBtn");
-const tableViewBtn = document.getElementById("tableViewBtn");
+// const tableViewBtn = document.getElementById("tableViewBtn");
 const editorEl = document.getElementById("editor");
 const outputEl = document.getElementById("output");
 const outputTableWrapEl = document.getElementById("outputTableWrap");
@@ -89,7 +89,7 @@ function setOutputMode(mode) {
   outputEl.classList.toggle("hidden", !isText);
   outputTableWrapEl.classList.toggle("hidden", isText);
   textViewBtn.classList.toggle("active", isText);
-  tableViewBtn.classList.toggle("active", !isText);
+//   tableViewBtn.classList.toggle("active", !isText);
 
   if (!isText) {
     renderTableView();
@@ -339,7 +339,7 @@ async function runPeppermintCode() {
 runBtn.addEventListener("click", runPeppermintCode);
 uploadBtn.addEventListener("click", () => csvInput.click());
 textViewBtn.addEventListener("click", () => setOutputMode("text"));
-tableViewBtn.addEventListener("click", () => setOutputMode("table"));
+// tableViewBtn.addEventListener("click", () => setOutputMode("table"));
 csvInput.addEventListener("change", async (event) => {
   const files = Array.from(event.target.files || []);
   await uploadCsvFiles(files);
